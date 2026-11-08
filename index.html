@@ -1,149 +1,345 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>GymStars</title>
-
-<style>
-*{
-margin:0;
-padding:0;
-box-sizing:border-box;
-font-family:Arial,sans-serif;
-}
-
-body{
-background:linear-gradient(135deg,#0f172a,#1e1b4b,#312e81);
-color:white;
-min-height:100vh;
-overflow-x:hidden;
-}
-
-.stars{
-position:fixed;
-width:100%;
-height:100%;
-top:0;
-left:0;
-z-index:-1;
-}
-
-.star{
-position:absolute;
-background:white;
-border-radius:50%;
-animation:twinkle 4s infinite;
-}
-
-@keyframes twinkle{
-50%{opacity:.2}
-}
-
-header{
-text-align:center;
-padding:40px 20px;
-}
-
-h1{
-font-size:60px;
-background:linear-gradient(90deg,#38bdf8,#ffffff,#c084fc);
--webkit-background-clip:text;
--webkit-text-fill-color:transparent;
-}
-
-.tagline{
-font-size:22px;
-color:#cbd5e1;
-margin-top:10px;
-}
-
-.upload-box{
-max-width:900px;
-margin:30px auto;
-display:flex;
-gap:10px;
-padding:20px;
-}
-
-.upload-box input{
-flex:1;
-padding:15px;
-border:none;
-border-radius:12px;
-font-size:16px;
-}
-
-.upload-box button{
-padding:15px 25px;
-border:none;
-border-radius:12px;
-background:linear-gradient(90deg,#06b6d4,#8b5cf6);
-color:white;
-font-weight:bold;
-cursor:pointer;
-}
-
-.video-grid{
-display:grid;
-grid-template-columns:repeat(auto-fit,minmax(320px,1fr));
-gap:20px;
-padding:20px;
-max-width:1400px;
-margin:auto;
-}
-
-.video-card{
-background:rgba(255,255,255,.08);
-backdrop-filter:blur(10px);
-border-radius:20px;
-padding:15px;
-transition:.3s;
-}
-
-.video-card:hover{
-transform:translateY(-6px);
-box-shadow:0 0 20px rgba(139,92,246,.5);
-}
-
-.video-card iframe{
-width:100%;
-height:220px;
-border:none;
-border-radius:12px;
-}
-
-.video-title{
-margin-top:10px;
-font-size:18px;
-font-weight:bold;
-}
-
-footer{
-text-align:center;
-padding:30px;
-color:#cbd5e1;
-}
-
-@media(max-width:600px){
-h1{
-font-size:42px;
-}
-.upload-box{
-flex-direction:column;
-}
-}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#7546e8">
+  <meta name="description" content="Find fun, coach-led gymnastics videos and build skills one small step at a time with GYMSTARS.">
+  <title>GYMSTARS — Learn Gymnastics Through Videos</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --ink: #292044;
+      --muted: #716b86;
+      --purple: #7546e8;
+      --purple-dark: #5931c2;
+      --pink: #f45ba5;
+      --cyan: #45c9e8;
+      --paper: #fff;
+      --line: #eee9f8;
+      --shadow: 0 16px 48px rgba(61, 38, 112, .11);
+    }
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      min-width: 320px;
+      color: var(--ink);
+      background: #fbf9ff;
+      font-family: "Nunito", "Trebuchet MS", Arial, sans-serif;
+      line-height: 1.5;
+      overflow-x: hidden;
+    }
+    button, input, select { font: inherit; }
+    button, a { -webkit-tap-highlight-color: transparent; }
+    a { color: inherit; }
+    button { cursor: pointer; }
+    .background-orbs { position: fixed; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+    .orb { position: absolute; border-radius: 50%; filter: blur(2px); opacity: .46; animation: float 14s ease-in-out infinite; }
+    .orb.one { width: 340px; height: 340px; top: 16%; left: -180px; background: #f9d8f0; }
+    .orb.two { width: 280px; height: 280px; top: 55%; right: -130px; background: #c9f3fb; animation-delay: -5s; }
+    .orb.three { width: 180px; height: 180px; top: 82%; left: 18%; background: #e3d8ff; animation-delay: -9s; }
+    @keyframes float { 50% { transform: translate3d(22px,-28px,0) scale(1.08); } }
+    .site-header { position: sticky; top: 0; z-index: 20; background: rgba(255,255,255,.86); backdrop-filter: blur(16px); border-bottom: 1px solid rgba(238,233,248,.9); }
+    .nav-wrap { width: min(1160px, calc(100% - 40px)); min-height: 76px; margin: auto; display: flex; align-items: center; justify-content: space-between; gap: 20px; }
+    .brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; font-weight: 1000; letter-spacing: .04em; font-size: 1.35rem; }
+    .brand-mark { width: 40px; height: 40px; display: grid; place-items: center; color: white; border-radius: 14px; background: linear-gradient(135deg,var(--pink),var(--purple)); box-shadow: 0 7px 18px #a37be955; font-size: 1.35rem; transform: rotate(-6deg); }
+    .brand-name { background: linear-gradient(90deg,var(--purple),var(--pink)); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .nav-links { display: flex; gap: 28px; align-items: center; }
+    .nav-links a { text-decoration: none; color: #5e5871; font-weight: 800; font-size: .94rem; }
+    .nav-links a:hover { color: var(--purple); }
+    .nav-cta, .primary-btn { border: 0; border-radius: 14px; padding: 12px 19px; color: white; text-decoration: none; font-weight: 900; background: linear-gradient(100deg,var(--purple),#9d54e9); box-shadow: 0 8px 20px #7546e833; transition: transform .2s, box-shadow .2s; }
+    .nav-cta:hover, .primary-btn:hover { transform: translateY(-2px); box-shadow: 0 12px 24px #7546e844; }
+    .hero { width: min(1160px, calc(100% - 40px)); margin: 0 auto; padding: 72px 0 54px; display: grid; grid-template-columns: 1.05fr .95fr; align-items: center; gap: 36px; }
+    .eyebrow { display: inline-flex; align-items: center; gap: 8px; padding: 8px 13px; border-radius: 999px; background: #f0eaff; color: var(--purple-dark); font-size: .83rem; font-weight: 900; letter-spacing: .025em; }
+    .hero h1 { margin: 17px 0 12px; max-width: 650px; font-size: clamp(3.1rem, 7vw, 5.8rem); line-height: .96; letter-spacing: -.065em; font-weight: 1000; }
+    .hero h1 .gradient-text { background: linear-gradient(95deg,var(--purple) 10%,var(--pink) 72%,#ff9b62); background-clip: text; -webkit-background-clip: text; color: transparent; }
+    .hero-copy { max-width: 520px; color: var(--muted); font-size: 1.13rem; margin: 19px 0 25px; }
+    .hero-actions { display: flex; flex-wrap: wrap; align-items: center; gap: 13px; }
+    .secondary-btn { padding: 11px 17px; color: var(--purple-dark); text-decoration: none; font-weight: 900; border: 1px solid #e6dcfa; border-radius: 14px; background: #fff; }
+    .hero-note { display: block; margin-top: 16px; color: #827c91; font-size: .84rem; }
+    .hero-art { min-height: 360px; position: relative; display: grid; place-items: center; }
+    .art-halo { position: absolute; width: min(390px,85vw); aspect-ratio: 1; border-radius: 42% 58% 58% 42% / 46% 45% 55% 54%; background: linear-gradient(145deg,#e7dbff,#ffd9ee 58%,#d1f6fc); transform: rotate(-9deg); animation: morph 10s ease-in-out infinite; }
+    @keyframes morph { 50% { border-radius: 57% 43% 42% 58% / 51% 58% 42% 49%; transform: rotate(7deg) scale(1.03); } }
+    .hero-card { position: relative; width: min(340px,78vw); padding: 18px; border: 8px solid white; border-radius: 30px; background: linear-gradient(140deg,#8b5cf6,#ed69b2 66%,#ffb96a); box-shadow: 0 22px 60px #6741ab36; transform: rotate(4deg); }
+    .hero-card-inner { min-height: 238px; border-radius: 18px; display: grid; place-items: center; text-align: center; color: white; background: linear-gradient(160deg,#ffffff22,#ffffff08); }
+    .hero-gymnast { font-size: 7rem; filter: drop-shadow(0 10px 8px #55348855); animation: bounce 3s ease-in-out infinite; }
+    @keyframes bounce { 50% { transform: translateY(-10px) rotate(-5deg); } }
+    .hero-card-label { padding: 9px 14px 0; color: white; font-weight: 1000; letter-spacing: .06em; text-transform: uppercase; }
+    .floating-badge { position: absolute; z-index: 2; display: grid; place-items: center; width: 58px; height: 58px; background: white; border-radius: 20px; box-shadow: var(--shadow); font-size: 1.8rem; animation: float 5s ease-in-out infinite; }
+    .badge-star { top: 10%; right: 8%; transform: rotate(9deg); }
+    .badge-heart { bottom: 12%; left: 6%; animation-delay: -2s; }
+    .badge-spark { bottom: 16%; right: 5%; animation-delay: -1s; }
+    .search-panel { width: min(920px, calc(100% - 40px)); margin: 0 auto 54px; padding: 16px; border: 1px solid #eee8f8; border-radius: 22px; background: white; box-shadow: var(--shadow); }
+    .search-box { display: flex; align-items: center; gap: 12px; }
+    .search-icon { padding-left: 9px; color: var(--purple); font-size: 1.3rem; }
+    .search-box input { flex: 1; min-width: 0; padding: 12px 4px; border: 0; outline: 0; color: var(--ink); font-size: 1rem; }
+    .search-box input::placeholder { color: #aaa4b7; }
+    .search-box .primary-btn { padding: 12px 24px; }
+    .section { width: min(1160px, calc(100% - 40px)); margin: 0 auto; }
+    .section-heading { display: flex; align-items: end; justify-content: space-between; gap: 20px; margin-bottom: 22px; }
+    .section-kicker { color: var(--pink); font-size: .78rem; font-weight: 1000; text-transform: uppercase; letter-spacing: .12em; }
+    .section-heading h2 { margin: 4px 0 0; font-size: clamp(1.8rem,4vw,2.5rem); letter-spacing: -.04em; }
+    .section-heading p { max-width: 420px; color: var(--muted); margin: 0; }
+    .category-row { display: flex; gap: 10px; overflow-x: auto; padding: 3px 1px 14px; scrollbar-width: thin; }
+    .filter-chip { flex: 0 0 auto; padding: 9px 16px; color: #655d77; border: 1px solid #e9e3f2; border-radius: 999px; background: white; font-weight: 900; transition: .2s; }
+    .filter-chip:hover { border-color: #c9b5fa; color: var(--purple); }
+    .filter-chip.active { color: white; border-color: transparent; background: linear-gradient(100deg,var(--purple),#a457e7); box-shadow: 0 6px 16px #7546e833; }
+    .library-tools { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 8px 0 16px; color: var(--muted); font-size: .9rem; }
+    .sort-select { padding: 9px 12px; border: 1px solid var(--line); border-radius: 11px; background: white; color: var(--ink); font-weight: 700; }
+    .video-grid { display: grid; grid-template-columns: repeat(3,minmax(0,1fr)); gap: 20px; }
+    .video-card { min-width: 0; overflow: hidden; border: 1px solid #eee9f6; border-radius: 20px; background: white; box-shadow: 0 9px 28px #39215c0b; transition: transform .22s, box-shadow .22s; }
+    .video-card:hover { transform: translateY(-5px); box-shadow: var(--shadow); }
+    .video-thumb { position: relative; aspect-ratio: 16/9; overflow: hidden; display: grid; place-items: center; background: linear-gradient(135deg,var(--thumb-a),var(--thumb-b)); }
+    .video-thumb::before, .video-thumb::after { content: ""; position: absolute; border-radius: 50%; background: #ffffff20; }
+    .video-thumb::before { width: 190px; height: 190px; top: -90px; right: -30px; }
+    .video-thumb::after { width: 140px; height: 140px; bottom: -92px; left: 20px; }
+    .thumb-emoji { z-index: 1; font-size: 4.2rem; filter: drop-shadow(0 8px 8px #37204b30); transition: transform .25s; }
+    .video-card:hover .thumb-emoji { transform: scale(1.12) rotate(-4deg); }
+    .play-button { position: absolute; z-index: 2; width: 50px; height: 50px; display: grid; place-items: center; padding-left: 3px; border: 2px solid #ffffffb3; border-radius: 50%; color: var(--purple); background: #ffffffed; font-size: 1.15rem; box-shadow: 0 6px 18px #30204b30; }
+    .duration { position: absolute; right: 10px; bottom: 10px; z-index: 2; padding: 3px 7px; color: white; border-radius: 6px; background: #292044bb; font-size: .75rem; font-weight: 800; }
+    .video-content { padding: 16px; }
+    .video-meta { display: flex; align-items: center; justify-content: space-between; gap: 10px; }
+    .tag { padding: 4px 9px; color: var(--purple-dark); border-radius: 999px; background: #f0eaff; font-size: .72rem; font-weight: 900; }
+    .video-title { margin: 10px 0 5px; font-size: 1.08rem; line-height: 1.3; letter-spacing: -.02em; }
+    .video-description { min-height: 42px; margin: 0; color: var(--muted); font-size: .88rem; }
+    .card-footer { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 15px; padding-top: 12px; border-top: 1px solid #f1edf6; }
+    .level { color: #777087; font-size: .78rem; font-weight: 800; }
+    .watch-link { color: var(--purple); text-decoration: none; font-size: .86rem; font-weight: 1000; }
+    .watch-link:hover { color: var(--pink); }
+    .save-btn, .remove-btn { padding: 5px 8px; border: 0; border-radius: 8px; color: #8c8499; background: #f7f4fb; font-weight: 900; }
+    .save-btn.saved { color: #e64e91; background: #fff0f7; }
+    .empty-state { grid-column: 1/-1; padding: 42px 20px; text-align: center; border: 1px dashed #d9cdef; border-radius: 20px; color: var(--muted); background: #fff; }
+    .empty-state strong { display: block; margin-bottom: 5px; color: var(--ink); font-size: 1.15rem; }
+    .add-section { margin: 72px auto; padding: 34px; display: grid; grid-template-columns: .9fr 1.1fr; gap: 30px; align-items: center; border-radius: 28px; color: white; background: linear-gradient(120deg,#6338ce,#8c50e6 52%,#cf58ad); box-shadow: 0 18px 45px #7546e833; }
+    .add-section .section-kicker { color: #ffe091; }
+    .add-section h2 { margin: 5px 0 8px; font-size: 2rem; line-height: 1.1; }
+    .add-section p { margin: 0; color: #f0e7ff; }
+    .add-form { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+    .add-form input, .add-form select { min-width: 0; width: 100%; padding: 12px 13px; border: 1px solid #ffffff88; outline: 0; border-radius: 12px; color: var(--ink); background: white; }
+    .add-form input:focus, .add-form select:focus { box-shadow: 0 0 0 3px #ffffff55; }
+    .add-form .url-field { grid-column: 1/-1; }
+    .add-form button { grid-column: 1/-1; padding: 12px; border: 0; border-radius: 12px; color: var(--purple-dark); background: #fff; font-weight: 1000; }
+    .add-form button:hover { background: #fff3fc; }
+    .form-message { grid-column: 1/-1; min-height: 1.3em; margin: 0; color: #fff8cc; font-size: .86rem; font-weight: 800; }
+    .safety { margin: 0 auto 64px; padding: 20px 22px; display: flex; align-items: flex-start; gap: 14px; border: 1px solid #ffe6ad; border-radius: 18px; background: #fffaf0; }
+    .safety-icon { font-size: 1.7rem; }
+    .safety h3 { margin: 0 0 3px; font-size: 1rem; }
+    .safety p { margin: 0; color: #756d62; font-size: .9rem; }
+    footer { padding: 28px 20px; border-top: 1px solid #eee9f6; color: var(--muted); text-align: center; background: #fff; font-size: .88rem; }
+    footer .brand { margin-bottom: 8px; font-size: 1.1rem; }
+    .toast { position: fixed; z-index: 30; right: 20px; bottom: 20px; max-width: min(360px,calc(100% - 40px)); padding: 13px 17px; border-radius: 14px; color: white; background: #302449; box-shadow: var(--shadow); opacity: 0; transform: translateY(12px); pointer-events: none; transition: .25s; }
+    .toast.show { opacity: 1; transform: translateY(0); }
+    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0,0,0,0); white-space: nowrap; border: 0; }
+    @media (max-width: 850px) {
+      .hero { grid-template-columns: 1fr .8fr; gap: 10px; padding-top: 56px; }
+      .hero-art { min-height: 300px; }
+      .video-grid { grid-template-columns: repeat(2,minmax(0,1fr)); }
+      .add-section { grid-template-columns: 1fr; gap: 18px; }
+    }
+    @media (max-width: 620px) {
+      .nav-wrap { width: min(100% - 28px,1160px); min-height: 66px; }
+      .nav-links { gap: 12px; }
+      .nav-links a:not(.nav-cta) { display: none; }
+      .nav-cta { padding: 10px 13px; font-size: .86rem; }
+      .hero { width: min(100% - 32px,1160px); display: flex; flex-direction: column; align-items: stretch; padding: 46px 0 20px; }
+      .hero h1 { font-size: clamp(3rem,15vw,4.6rem); }
+      .hero-copy { font-size: 1rem; }
+      .hero-art { min-height: 300px; margin-top: 8px; }
+      .art-halo { width: 270px; }
+      .hero-card { width: 250px; padding: 12px; border-width: 6px; }
+      .hero-card-inner { min-height: 190px; }
+      .hero-gymnast { font-size: 5.5rem; }
+      .floating-badge { width: 48px; height: 48px; border-radius: 16px; font-size: 1.5rem; }
+      .search-panel { width: calc(100% - 32px); margin-bottom: 42px; padding: 10px; }
+      .search-box { gap: 7px; }
+      .search-box input { font-size: .9rem; }
+      .search-box .primary-btn { padding: 11px 13px; }
+      .section { width: calc(100% - 32px); }
+      .section-heading { align-items: flex-start; flex-direction: column; gap: 8px; }
+      .section-heading p { font-size: .92rem; }
+      .video-grid { grid-template-columns: 1fr; gap: 14px; }
+      .video-thumb { aspect-ratio: 16/8.5; }
+      .thumb-emoji { font-size: 3.8rem; }
+      .add-section { width: calc(100% - 32px); margin: 52px auto; padding: 24px 19px; }
+      .add-section h2 { font-size: 1.7rem; }
+      .add-form { grid-template-columns: 1fr; }
+      .add-form .url-field, .add-form button, .form-message { grid-column: auto; }
+      .safety { width: calc(100% - 32px); margin-bottom: 48px; padding: 16px; }
+      .library-tools { font-size: .82rem; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { scroll-behavior: auto !important; animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+    }
+  </style>
 </head>
 <body>
+  <div class="background-orbs" aria-hidden="true"><span class="orb one"></span><span class="orb two"></span><span class="orb three"></span></div>
+  <header class="site-header">
+    <nav class="nav-wrap" aria-label="Main navigation">
+      <a class="brand" href="#home" aria-label="GYMSTARS home"><span class="brand-mark" aria-hidden="true">✦</span><span class="brand-name">GYMSTARS</span></a>
+      <div class="nav-links"><a href="#library">Explore videos</a><a href="#safety">Safety first</a><a class="nav-cta" href="#add-video">＋ Add a video</a></div>
+    </nav>
+  </header>
 
-<div class="stars" id="stars"></div>
+  <main>
+    <section class="hero" id="home" aria-labelledby="hero-title">
+      <div class="hero-copy-wrap">
+        <span class="eyebrow">✨ Big moves start with small steps</span>
+        <h1 id="hero-title">Hey, future <span class="gradient-text">star!</span></h1>
+        <p class="hero-copy">Find fun gymnastics videos, explore new skills, and celebrate every little win along the way.</p>
+        <div class="hero-actions"><a class="primary-btn" href="#library">Explore the video library <span aria-hidden="true">→</span></a><a class="secondary-btn" href="#safety">Learn safely</a></div>
+        <small class="hero-note">A bright place to learn, practice, and grow with a trusted grown-up or coach.</small>
+      </div>
+      <div class="hero-art" aria-label="Colorful gymnastics illustration">
+        <div class="art-halo"></div><span class="floating-badge badge-star" aria-hidden="true">⭐</span><span class="floating-badge badge-heart" aria-hidden="true">💖</span><span class="floating-badge badge-spark" aria-hidden="true">✨</span>
+        <div class="hero-card"><div class="hero-card-inner"><span class="hero-gymnast" aria-hidden="true">🤸‍♀️</span></div><div class="hero-card-label">Stretch • Learn • Shine</div></div>
+      </div>
+    </section>
 
-<header>
-<h1>GYMSTARS</h1>
-<div class="tagline">Amazing Gymnastics Videos For Kids</div>
-</header>
+    <form class="search-panel" id="searchForm" role="search">
+      <label class="sr-only" for="searchInput">Search gymnastics videos</label>
+      <div class="search-box"><span class="search-icon" aria-hidden="true">⌕</span><input id="searchInput" type="search" placeholder="What would you like to learn today?" autocomplete="off"><button class="primary-btn" type="submit">Search</button></div>
+    </form>
 
-<div class="upload-box">
-<input id="videoUrl" placeholder="Paste YouTube Video URL Here">
-<button onclick="
+    <section class="section" id="library" aria-labelledby="library-title">
+      <div class="section-heading"><div><span class="section-kicker">Your next favorite skill</span><h2 id="library-title">Explore the library</h2></div><p>Choose a topic and find a video to explore. Starter links open relevant YouTube results; added video links play right here.</p></div>
+      <div class="category-row" id="categoryFilters" aria-label="Filter videos by category"></div>
+      <div class="library-tools"><span id="resultCount" aria-live="polite"></span><label>Sort <select class="sort-select" id="sortSelect" aria-label="Sort videos"><option value="featured">Featured</option><option value="title">Title A–Z</option></select></label></div>
+      <div class="video-grid" id="videoGrid" aria-live="polite"></div>
+    </section>
+
+    <section class="section add-section" id="add-video" aria-labelledby="add-title">
+      <div><span class="section-kicker">Share the inspiration</span><h2 id="add-title">Add a gymnastics video</h2><p>Paste a YouTube video link to add it to your library on this device. We never upload or store a video file.</p></div>
+      <form class="add-form" id="addVideoForm">
+        <label class="sr-only" for="videoTitle">Video title</label><input id="videoTitle" maxlength="70" placeholder="Video title (optional)">
+        <label class="sr-only" for="videoCategory">Video category</label><select id="videoCategory"><option value="Basics">Basics</option><option value="Flexibility">Flexibility</option><option value="Balance">Balance</option><option value="Floor skills">Floor skills</option><option value="Inspiration">Inspiration</option></select>
+        <label class="sr-only" for="videoUrl">YouTube video URL</label><input class="url-field" id="videoUrl" type="url" placeholder="Paste a YouTube video URL" required>
+        <button type="submit">＋ Add to my library</button><p class="form-message" id="formMessage" aria-live="polite"></p>
+      </form>
+    </section>
+
+    <aside class="section safety" id="safety" aria-labelledby="safety-title"><span class="safety-icon" aria-hidden="true">🛡️</span><div><h3 id="safety-title">Safety always comes first</h3><p>Gymnastics moves can be challenging. Watch with a parent, guardian, or qualified coach, and practice only in a safe space with proper supervision and equipment. Videos are for learning and inspiration—not a substitute for coaching.</p></div></aside>
+  </main>
+
+  <footer><a class="brand" href="#home"><span class="brand-mark" aria-hidden="true">✦</span><span class="brand-name">GYMSTARS</span></a><div>Learn Gymnastics Through Videos</div><small>Keep learning. Keep shining. ⭐</small></footer>
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+  <script>
+    (() => {
+      const starterVideos = [
+        { id: 'starter-1', title: 'Gymnastics warm-up ideas', category: 'Basics', description: 'Get ready to move with a gentle, beginner-friendly warm-up.', level: 'Getting started', emoji: '🌈', colors: ['#ff9bcb','#ac78f2'], query: 'kids gymnastics warm up for beginners' },
+        { id: 'starter-2', title: 'Stretching and flexibility', category: 'Flexibility', description: 'Explore simple stretches and learn why flexibility matters.', level: 'All levels', emoji: '🧘‍♀️', colors: ['#75ddeb','#7e8df4'], query: 'kids gymnastics flexibility stretches coach' },
+        { id: 'starter-3', title: 'Balance and body control', category: 'Balance', description: 'Practice focus and body awareness with balance basics.', level: 'Getting started', emoji: '⚖️', colors: ['#ffc66d','#f47fa5'], query: 'kids gymnastics balance basics coach' },
+        { id: 'starter-4', title: 'Floor skills for beginners', category: 'Floor skills', description: 'Discover foundational floor shapes and movement skills.', level: 'Beginner', emoji: '🤸', colors: ['#9de9d2','#54bde8'], query: 'beginner gymnastics floor skills kids coach' },
+        { id: 'starter-5', title: 'Gymnastics shapes and positions', category: 'Basics', description: 'Learn common body shapes used in gymnastics and dance.', level: 'Getting started', emoji: '⭐', colors: ['#b79bff','#f194ca'], query: 'gymnastics body shapes positions for kids' },
+        { id: 'starter-6', title: 'Meet the gymnastics equipment', category: 'Inspiration', description: 'Take a look at the different apparatus used in gymnastics.', level: 'Just for fun', emoji: '🎀', colors: ['#7bd8f0','#a2d992'], query: 'gymnastics equipment explained for kids' }
+      ];
+      const categories = ['All videos', 'Basics', 'Flexibility', 'Balance', 'Floor skills', 'Inspiration', 'My saved'];
+      const grid = document.getElementById('videoGrid');
+      const searchInput = document.getElementById('searchInput');
+      const filters = document.getElementById('categoryFilters');
+      const resultCount = document.getElementById('resultCount');
+      const sortSelect = document.getElementById('sortSelect');
+      const formMessage = document.getElementById('formMessage');
+      let activeCategory = 'All videos';
+      let searchTerm = '';
+      let toastTimer;
+
+      const readStorage = (key, fallback) => {
+        try { const value = JSON.parse(localStorage.getItem(key)); return value ?? fallback; }
+        catch (_) { return fallback; }
+      };
+      let userVideos = readStorage('gymstars-videos', []);
+      let savedVideos = readStorage('gymstars-saved', []);
+      if (!Array.isArray(userVideos)) userVideos = [];
+      if (!Array.isArray(savedVideos)) savedVideos = [];
+      const allVideos = () => [...starterVideos, ...userVideos];
+      const saveState = () => {
+        try { localStorage.setItem('gymstars-videos', JSON.stringify(userVideos)); localStorage.setItem('gymstars-saved', JSON.stringify(savedVideos)); }
+        catch (_) { showToast('Browser storage is unavailable. Your changes may not be saved.'); }
+      };
+      const escapeHTML = value => String(value).replace(/[&<>"']/g, char => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[char]));
+      const makeFilters = () => {
+        filters.innerHTML = categories.map(category => `<button type="button" class="filter-chip${activeCategory === category ? ' active' : ''}" data-category="${escapeHTML(category)}" aria-pressed="${activeCategory === category}">${category === 'My saved' ? '♡ ' : ''}${escapeHTML(category)}</button>`).join('');
+      };
+      const getVideoLink = video => video.youtubeId ? `https://www.youtube-nocookie.com/embed/${encodeURIComponent(video.youtubeId)}?rel=0` : `https://www.youtube.com/results?search_query=${encodeURIComponent(video.query)}`;
+      const videoCard = video => {
+        const saved = savedVideos.includes(video.id);
+        const thumb = video.youtubeId
+          ? `<iframe title="${escapeHTML(video.title)}" src="${getVideoLink(video)}" loading="lazy" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen style="position:absolute;inset:0;width:100%;height:100%;border:0"></iframe>`
+          : `<span class="thumb-emoji" aria-hidden="true">${video.emoji}</span><a class="play-button" href="${getVideoLink(video)}" target="_blank" rel="noopener noreferrer" aria-label="Search YouTube for ${escapeHTML(video.title)}">▶</a><span class="duration">Explore</span>`;
+        return `<article class="video-card" style="--thumb-a:${video.colors ? video.colors[0] : '#a987ef'};--thumb-b:${video.colors ? video.colors[1] : '#f38ab9'}"><div class="video-thumb">${thumb}</div><div class="video-content"><div class="video-meta"><span class="tag">${escapeHTML(video.category)}</span>${video.userAdded ? '<button class="remove-btn" type="button" data-remove="'+escapeHTML(video.id)+'" aria-label="Remove '+escapeHTML(video.title)+'">Remove</button>' : ''}</div><h3 class="video-title">${escapeHTML(video.title)}</h3><p class="video-description">${escapeHTML(video.description || 'A video picked for your gymnastics learning journey.')}</p><div class="card-footer"><span class="level">${escapeHTML(video.level || 'Video link added')}</span><button class="save-btn${saved ? ' saved' : ''}" type="button" data-save="${escapeHTML(video.id)}" aria-pressed="${saved}" aria-label="${saved ? 'Remove from' : 'Add to'} saved videos">${saved ? '♥ Saved' : '♡ Save'}</button></div></div></article>`;
+      };
+      const render = () => {
+        makeFilters();
+        let videos = allVideos().filter(video => {
+          const matchesCategory = activeCategory === 'All videos' || (activeCategory === 'My saved' ? savedVideos.includes(video.id) : video.category === activeCategory);
+          const haystack = `${video.title} ${video.category} ${video.description || ''}`.toLowerCase();
+          return matchesCategory && haystack.includes(searchTerm.toLowerCase());
+        });
+        if (sortSelect.value === 'title') videos.sort((a,b) => a.title.localeCompare(b.title));
+        resultCount.textContent = `${videos.length} ${videos.length === 1 ? 'video' : 'videos'} to explore`;
+        grid.innerHTML = videos.length ? videos.map(videoCard).join('') : '<div class="empty-state"><strong>No videos found just yet</strong>Try another search or category, or add a YouTube video link below.</div>';
+      };
+      const showToast = message => {
+        const toast = document.getElementById('toast');
+        toast.textContent = message;
+        toast.classList.add('show');
+        clearTimeout(toastTimer);
+        toastTimer = setTimeout(() => toast.classList.remove('show'), 2800);
+      };
+      const parseYouTubeId = raw => {
+        try {
+          const url = new URL(raw.trim());
+          const host = url.hostname.replace(/^www\./, '').replace(/^m\./, '');
+          let id = '';
+          if (host === 'youtu.be') id = url.pathname.split('/').filter(Boolean)[0] || '';
+          else if (['youtube.com','youtube-nocookie.com'].includes(host)) {
+            if (url.pathname === '/watch') id = url.searchParams.get('v') || '';
+            else { const parts = url.pathname.split('/').filter(Boolean); if (['embed','shorts','live'].includes(parts[0])) id = parts[1] || ''; }
+          }
+          return /^[\w-]{11}$/.test(id) ? id : null;
+        } catch (_) { return null; }
+      };
+
+      filters.addEventListener('click', event => {
+        const button = event.target.closest('[data-category]');
+        if (!button) return;
+        activeCategory = button.dataset.category;
+        render();
+      });
+      document.getElementById('searchForm').addEventListener('submit', event => { event.preventDefault(); searchTerm = searchInput.value.trim(); render(); document.getElementById('library').scrollIntoView({ behavior: 'smooth', block: 'start' }); });
+      searchInput.addEventListener('input', () => { searchTerm = searchInput.value.trim(); render(); });
+      sortSelect.addEventListener('change', render);
+      grid.addEventListener('click', event => {
+        const saveButton = event.target.closest('[data-save]');
+        const removeButton = event.target.closest('[data-remove]');
+        if (saveButton) {
+          const id = saveButton.dataset.save;
+          savedVideos = savedVideos.includes(id) ? savedVideos.filter(item => item !== id) : [...savedVideos, id];
+          saveState(); render();
+        }
+        if (removeButton) {
+          userVideos = userVideos.filter(video => video.id !== removeButton.dataset.remove);
+          savedVideos = savedVideos.filter(id => id !== removeButton.dataset.remove);
+          saveState(); render(); showToast('Video removed from your library.');
+        }
+      });
+      document.getElementById('addVideoForm').addEventListener('submit', event => {
+        event.preventDefault();
+        const urlInput = document.getElementById('videoUrl');
+        const youtubeId = parseYouTubeId(urlInput.value);
+        if (!youtubeId) { formMessage.textContent = 'Please enter a valid YouTube video, Shorts, or youtu.be link.'; urlInput.focus(); return; }
+        if (allVideos().some(video => video.youtubeId === youtubeId)) { formMessage.textContent = 'That video is already in your library.'; return; }
+        const category = document.getElementById('videoCategory').value;
+        const title = document.getElementById('videoTitle').value.trim() || `My ${category.toLowerCase()} video`;
+        userVideos.unshift({ id: `custom-${youtubeId}`, youtubeId, title, category, description: 'A video added to your personal library on this device.', level: 'Your video', userAdded: true, colors: ['#9e7bf1','#f375b0'] });
+        saveState(); activeCategory = 'All videos'; searchInput.value = ''; searchTerm = ''; event.target.reset(); formMessage.textContent = 'Added! Your video is ready in the library.'; render(); showToast('Your video was added to the library!');
+        document.getElementById('library').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+      render();
+    })();
+  </script>
+</body>
+</html>
